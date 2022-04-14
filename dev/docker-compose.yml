@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: postgres:11.7
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgstore_zip_airlines:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: zip_airlines
+      POSTGRES_PASSWORD: zip_airlines
+
+  web:
+    build:
+      dockerfile: dev/Dockerfile
+      context: ..
+    links:
+      - db
+    env_file:
+      - var.env
+    volumes:
+      - ..:/opt/project
+    command:
+      - /bin/sh
+      - -c
+      - |
+        python manage.py migrate --noinput
+        python manage.py collectstatic --noinput
+        python manage.py runserver 0.0.0.0:8080
+    ports:
+      - "8080:8080"
+
+
+volumes:
+  pgstore_zip_airlines:
