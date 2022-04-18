@@ -1,7 +1,7 @@
 # ZipAirlines
 
 ## Presets:
-    Clone project from github: git clone git@github.com:ITPunkDron/zip_airlines.git
+    Clone project from github: git clone git@github.com:dosohe/zip_airlines.git
 
 ## Run project with docker-compose:
     docker-compose -p zip_airlines  --file dev/docker-compose.yml up -d --build
